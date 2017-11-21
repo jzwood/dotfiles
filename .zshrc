@@ -23,7 +23,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ #export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -63,7 +63,7 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+ export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -110,7 +110,10 @@ ldap () {
 }
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
-alias vz="vim ~/.zshrc"
-alias vv="vim ~/.vimrc"
+alias vz="nvim ~/.zshrc"
+alias vv="nvim ~/.config/nvim/init.vim"
 alias work="cd ~/Documents/works"
 alias hours="python ~/timesheet.py"
+
+
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
