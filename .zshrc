@@ -111,6 +111,7 @@ ldap () {
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
+alias vi='nvim'
 alias vv="nvim ~/.config/nvim/init.vim"
 alias work="cd ~/Documents/works"
 alias hours="python ~/timesheet.py"

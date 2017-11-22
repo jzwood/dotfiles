@@ -2,13 +2,15 @@
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
+
 Plug 'Raimondi/delimitMate'
 Plug 'beautify-web/js-beautify'
+Plug 'bling/vim-airline'
 Plug 'chrisbra/colorizer'
 Plug 'ervandew/ag'
 Plug 'junegunn/fzf'
-Plug 'junegunn/seoul256.vim'
 Plug 'kien/ctrlp.vim'
+Plug 'junegunn/seoul256.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
@@ -25,6 +27,9 @@ call plug#end()
 if !exists("g:syntax_on")
 	syntax enable
 endif
+
+let g:seoul256_background = 235
+colo seoul256
 
 filetype plugin indent on
 
@@ -76,6 +81,7 @@ set wildignore+=*.pyc,*.o,*.class,*.lo,.git,*/coverage/*,*/node_modules/*,*/vend
 set wildmenu		"visual autocomplete for command menu
 set wildmode=list:longest
 set wrap
+
 setlocal spell spelllang=en_us
 "Invisible character colors
 highlight NonText guifg=#1a4a59
