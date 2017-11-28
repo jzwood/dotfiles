@@ -1,0 +1,47 @@
+# EditorConfig http://editorconfig.org
+# see http://editorconfig.org/#download for plugins for your editor
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[**.js]
+; path to optional external js beautifier, default is vim-jsbeautify/plugin/lib
+path=~/.vim/plugged/js-beautify/js/lib/beautify.js
+; Javascript interpreter to be invoked by default 'node'
+bin=node
+indent_style = space
+indent_size = 2
+
+[**.{css,scss}]
+path=~/.vim/plugged/js-beautify/js/lib/beautify-css.js
+indent_style = space
+indent_size = 2
+
+[**.{html,hbs}]
+; Using special comments
+; And such comments or apply only in global configuration
+; So it's best to avoid them
+;vim:path=~/.vim/plugged/js-beautify/js/lib/beautify-html.js
+;vim:max_char=78:brace_style=expand
+indent_style = space
+indent_size = 2
+
+[*.{md,json}]
+indent_style = space
+indent_size = 2
+
+# ignore third party
+[node_modules/**.js]
+indent_size = N/A
+indent_style = N/A

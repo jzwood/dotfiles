@@ -13,19 +13,21 @@ Plug 'Raimondi/delimitMate'
 Plug 'beautify-web/js-beautify'
 Plug 'bling/vim-airline'
 Plug 'chrisbra/colorizer'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/ag'
 Plug 'junegunn/fzf'
 Plug 'junegunn/seoul256.vim'
-Plug 'kien/ctrlp.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'sgur/vim-editorconfig'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
+Plug 'yggdroot/indentline'
 
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons' "must be last
@@ -101,7 +103,7 @@ set wrap
 setlocal spell spelllang=en_us
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors 
+" Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 colo seoul256
@@ -154,5 +156,7 @@ function TabToggle()
 endfunction
 
 nmap <leader>e :execute TabToggle()<CR>
-imap <C-c> <CR><Esc>O		"this lets you type CTRL-C to add a newline between brackets
+
+"this lets you type CTRL-C to add a newline between brackets
+imap <C-c> <CR><Esc>O
 
