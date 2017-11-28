@@ -1,7 +1,13 @@
-" Plugins will be downloaded under the secified directory.
-call plug#begin('~/.vim/plugged')
 
-" Declare the list of plugins.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plug
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if !has("nvim")
+  call plug#begin('~/.vim/plugged')
+else
+  call plug#begin('~/.config/nvim/plugged')
+endif
 
 Plug 'Raimondi/delimitMate'
 Plug 'beautify-web/js-beautify'
@@ -9,8 +15,8 @@ Plug 'bling/vim-airline'
 Plug 'chrisbra/colorizer'
 Plug 'ervandew/ag'
 Plug 'junegunn/fzf'
-Plug 'kien/ctrlp.vim'
 Plug 'junegunn/seoul256.vim'
+Plug 'kien/ctrlp.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
@@ -21,23 +27,34 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 
-" List ends here. Plugins become visible to Vim after this call.
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons' "must be last
+
 call plug#end()
 
 if !exists("g:syntax_on")
 	syntax enable
 endif
 
-let g:seoul256_background = 235
-colo seoul256
-
 filetype plugin indent on
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Let
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo', 'code', 'coverage', 'node_modules', 'tmp']
+let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo']
 let NERDTreeHijackNetrw = 0
+
+let g:NERDTreeLimitedSyntax = 1
 let g:user_emmet_leader_key='<C-M>'
 let g:ale_linters = {'javascript': ['eslint']}
+let g:airline_powerline_fonts=1
+let g:seoul256_background = 235
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set autoindent
 set background=dark
@@ -47,7 +64,6 @@ set cursorline		"highlight current line
 set encoding=utf-8
 set expandtab
 set formatoptions=qrn1
-set gdefault
 set hidden
 set ignorecase
 set incsearch		"search as characters are entered
@@ -83,9 +99,19 @@ set wildmode=list:longest
 set wrap
 
 setlocal spell spelllang=en_us
-"Invisible character colors
-highlight NonText guifg=#1a4a59
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+colo seoul256
+
+highlight NonText guifg=#1a4a59		"Invisible character colors
 highlight SpecialKey guifg=#4a4a59
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mapping
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " NERDTree
 map <silent> <LocalLeader>t :NERDTreeToggle<CR>
@@ -96,7 +122,7 @@ map <silent> <LocalLeader>nf :NERDTreeFind<CR>
 nmap <silent> <RIGHT> :cnext<CR>
 nmap <silent> <LEFT> :cprev<CR>
 
-".vimrc
+"these are not working. @todo: find better beautifier
 autocmd FileType javascript noremap <buffer>	<c-f> :call JsBeautify()<cr>
 autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
 autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
@@ -128,5 +154,5 @@ function TabToggle()
 endfunction
 
 nmap <leader>e :execute TabToggle()<CR>
-imap <C-c> <CR><Esc>O
+imap <C-c> <CR><Esc>O		"this lets you type CTRL-C to add a newline between brackets
 
