@@ -4,9 +4,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if !has("nvim")
-  call plug#begin('~/.vim/plugged')
+	call plug#begin('~/.vim/plugged')
 else
-  call plug#begin('~/.config/nvim/plugged')
+	call plug#begin('~/.config/nvim/plugged')
 endif
 
 Plug 'Raimondi/delimitMate'
@@ -45,14 +45,15 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo']
+let NERDTreeIgnore=['\.pyc']
 let NERDTreeHijackNetrw = 0
 
 let g:NERDTreeLimitedSyntax = 1
 let g:user_emmet_leader_key='<C-M>'
 let g:ale_linters = {'javascript': ['eslint']}
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 1
 let g:seoul256_background = 235
+let g:ctrlp_working_path_mode = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set

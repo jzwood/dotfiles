@@ -113,8 +113,10 @@ alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
 alias vi='nvim'
 alias vv="nvim ~/.config/nvim/init.vim"
-alias work="cd ~/Documents/works"
+alias wo="cd ~/Documents/works"
 alias hours="python ~/timesheet.py"
+alias dt="cd ~/Desktop"
+alias dv="cd ~/Development"
 
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
