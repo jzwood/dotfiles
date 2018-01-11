@@ -4,9 +4,13 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if !has("nvim")
-	call plug#begin('~/.vim/plugged')
+  call plug#begin('~/.vim/plugged')
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 else
-	call plug#begin('~/.config/nvim/plugged')
+  call plug#begin('~/.config/nvim/plugged')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 
 Plug 'Raimondi/delimitMate'
@@ -15,6 +19,7 @@ Plug 'bling/vim-airline'
 Plug 'chrisbra/colorizer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ervandew/ag'
+Plug 'ervandew/supertab'
 Plug 'junegunn/fzf'
 Plug 'junegunn/seoul256.vim'
 Plug 'maksimr/vim-jsbeautify'
@@ -35,7 +40,7 @@ Plug 'ryanoasis/vim-devicons' "must be last
 call plug#end()
 
 if !exists("g:syntax_on")
-	syntax enable
+  syntax enable
 endif
 
 filetype plugin indent on
@@ -54,6 +59,7 @@ let g:ale_linters = {'javascript': ['eslint']}
 let g:airline_powerline_fonts = 1
 let g:seoul256_background = 235
 let g:ctrlp_working_path_mode = 0
+let g:deoplete#enable_at_startup = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set
@@ -62,16 +68,17 @@ let g:ctrlp_working_path_mode = 0
 set autoindent
 set background=dark
 set backspace=indent,eol,start
+set colorcolumn=80
 set complete+=kspell
-set cursorline		"highlight current line
+set cursorline    "highlight current line
 set encoding=utf-8
 set expandtab
 set formatoptions=qrn1
 set hidden
 set ignorecase
-set incsearch		"search as characters are entered
+set incsearch   "search as characters are entered
 set laststatus=2
-set lazyredraw		"redraw only when we need to
+set lazyredraw    "redraw only when we need to
 set linebreak
 set list
 set listchars=tab:▸\ ,eol:¬,space:·
@@ -81,25 +88,25 @@ set nocompatible
 set noerrorbells
 set noexpandtab
 set nohlsearch
-set number		"show line numbers
+set number    "show line numbers
 set ruler
 set scrolloff=3
 set shiftwidth=2
-set showcmd		"show command in bottom bar
-set showmatch		" highlight matching [{()}]}]
+set showcmd   "show command in bottom bar
+set showmatch   " highlight matching [{()}]}]
 set smartcase
 set smartindent
 set softtabstop=2
 set tabstop=2
-set textwidth=79
+"set textwidth=79
 set title
 set ttyfast
 set undofile
 set visualbell
 set wildignore+=*.pyc,*.o,*.class,*.lo,.git,*/coverage/*,*/node_modules/*,*/vendor/*
-set wildmenu		"visual autocomplete for command menu
+set wildmenu    "visual autocomplete for command menu
 set wildmode=list:longest
-set wrap
+set wrap linebreak nolist
 
 setlocal spell spelllang=en_us
 
@@ -109,7 +116,7 @@ setlocal spell spelllang=en_us
 
 colo seoul256
 
-highlight NonText guifg=#1a4a59		"Invisible character colors
+highlight NonText guifg=#1a4a59   "Invisible character colors
 highlight SpecialKey guifg=#4a4a59
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -125,10 +132,15 @@ map <silent> <LocalLeader>nf :NERDTreeFind<CR>
 nmap <silent> <RIGHT> :cnext<CR>
 nmap <silent> <LEFT> :cprev<CR>
 
+"vim tab navigation
+nnoremap th :tabnext<CR>
+nnoremap tl :tabprev<CR>
+nnoremap tn :tabnew<CR>
+
 "these are not working. @todo: find better beautifier
-autocmd FileType javascript noremap <buffer>	<c-f> :call JsBeautify()<cr>
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+"autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType hbs noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
@@ -148,12 +160,12 @@ nmap <leader>n :set number!<CR>
 nmap <leader>s :set spell!<CR>
 
 function TabToggle()
-	if &expandtab
-		set noexpandtab
-	else
-		set expandtab
-	endif
-	retab!
+  if &expandtab
+    set noexpandtab
+  else
+    set expandtab
+  endif
+  retab!
 endfunction
 
 nmap <leader>e :execute TabToggle()<CR>

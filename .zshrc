@@ -117,6 +117,6 @@ alias wo="cd ~/Documents/works"
 alias hours="python ~/timesheet.py"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
-
+alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/"
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
