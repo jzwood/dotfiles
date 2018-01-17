@@ -27,7 +27,7 @@ Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'sgur/vim-editorconfig'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -134,8 +134,8 @@ nmap <silent> <LEFT> :cprev<CR>
 
 "vim tab navigation
 nnoremap th :tabnext<CR>
-nnoremap tl :tabprev<CR>
-nnoremap tn :tabnew<CR>
+nnoremap tl :tabnext<CR>
+nnoremap th :tabprev<CR>
 
 "these are not working. @todo: find better beautifier
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
