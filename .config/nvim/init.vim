@@ -80,7 +80,6 @@ set incsearch   "search as characters are entered
 set laststatus=2
 set lazyredraw    "redraw only when we need to
 set linebreak
-set list
 set listchars=tab:▸\ ,eol:¬,space:·
 set modelines=0
 set mouse=a
@@ -109,6 +108,7 @@ set wildmode=list:longest
 set wrap linebreak nolist
 
 setlocal spell spelllang=en_us
+set list
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
