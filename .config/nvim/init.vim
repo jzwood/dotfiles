@@ -1,5 +1,5 @@
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -13,21 +13,31 @@ else
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 
+" THEMES
+Plug 'DemonCloud/J'
+Plug 'devnul1/heman'
+Plug 'dracula/vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'beigebrucewayne/skull-vim'
+Plug 'morhetz/gruvbox'
+
 Plug 'Raimondi/delimitMate'
 Plug 'beautify-web/js-beautify'
 Plug 'bling/vim-airline'
-Plug 'chrisbra/colorizer'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dmdque/solidity.vim'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/ag'
 Plug 'ervandew/supertab'
+Plug 'isnowfy/python-vim-instant-markdown'
 Plug 'junegunn/fzf'
-Plug 'junegunn/seoul256.vim'
+Plug 'lilydjwg/colorizer'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -53,13 +63,16 @@ let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.pyc']
 let NERDTreeHijackNetrw = 0
 
-let g:NERDTreeLimitedSyntax = 1
-let g:user_emmet_leader_key='<C-M>'
-let g:ale_linters = {'javascript': ['eslint']}
-let g:airline_powerline_fonts = 1
 let g:seoul256_background = 235
+let g:NERDTreeLimitedSyntax = 1
+let g:SuperTabDefaultCompletionType = '<c-n>'
+let g:airline#extensions#ale#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:ale_linters = {'javascript': ['eslint']}
 let g:ctrlp_working_path_mode = 0
 let g:deoplete#enable_at_startup = 1
+let g:indentLine_setConceal = 0
+let g:user_emmet_leader_key='<C-M>'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set
@@ -80,7 +93,7 @@ set incsearch   "search as characters are entered
 set laststatus=2
 set lazyredraw    "redraw only when we need to
 set linebreak
-set listchars=tab:▸\ ,eol:¬,space:·
+set listchars=tab:▸\ ,eol:¬,space:·,extends:»,precedes:«,trail:•
 set modelines=0
 set mouse=a
 set nocompatible
@@ -114,7 +127,12 @@ set list
 " Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-colo seoul256
+"colo seoul256
+"colorscheme J
+"colorscheme dracula
+colorscheme gruvbox
+"colorscheme heman
+"colorscheme skull
 
 highlight NonText guifg=#1a4a59   "Invisible character colors
 highlight SpecialKey guifg=#4a4a59
