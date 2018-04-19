@@ -104,13 +104,30 @@ npmreg() {
   npm config get registry
 }
 
+chuck() {
+  curl --silent http://api.icndb.com/jokes/random | python -c """
+try:
+  import sys, json
+  from HTMLParser import HTMLParser as h
+  print h().unescape(json.load(sys.stdin)['value']['joke'])
+except:
+  print 'Chuck Norris bashed your bash profile. No facts available.'
+""" | say
+}
+
 ldap () {
 	export LDAP_PASSWORD="$( ac-password get ldap )"
 	echo "LDAP exported"
 }
 
+syncgeth () {
+  echo 'Rinkeby syncing in background.\n"screen -x geth" to see progress.\nCTRL+a+d to toggle away.'
+  screen -dmS geth geth --rinkeby --syncmode "fast" --rpc --rpcapi db,eth,net,web3,personal --cache=1024 --rpcport 8545 --rpcaddr 127.0.0.1 --rpccorsdomain "*"
+}
+
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
+alias vt="nvim ~/.tmux.conf"
 alias vi='nvim'
 alias vv="nvim ~/.config/nvim/init.vim"
 alias wo="cd ~/Documents/works"
@@ -118,5 +135,14 @@ alias hours="python ~/timesheet.py"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/"
+alias vmrun="/Applications/VMware\ Fusion.app/Contents/Library/vmrun"
+export DEB_PATH=~/Documents/Virtual\ Machines.localized/Debian\ 6\ 64-bit.vmwarevm
+alias vm="vmrun -T fusion start \$DEB_PATH"
+alias vmls="echo 'vmrun -T fusion start \$DEB_PATH'"
 
+export testnet=~/Library/Ethereum/testnet/geth.ipc
+export rinkeby=~/Library/Ethereum/rinkeby/geth.ipc
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+export NVM_DIR="/Users/jake.wood/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

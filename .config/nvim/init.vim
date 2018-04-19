@@ -10,7 +10,6 @@ if !has("nvim")
     Plug 'roxma/vim-hug-neovim-rpc'
 else
   call plug#begin('~/.config/nvim/plugged')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 
 " THEMES
@@ -24,7 +23,6 @@ Plug 'morhetz/gruvbox'
 Plug 'Raimondi/delimitMate'
 Plug 'beautify-web/js-beautify'
 Plug 'bling/vim-airline'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dmdque/solidity.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -154,6 +152,12 @@ nmap <silent> <LEFT> :cprev<CR>
 nnoremap th :tabnext<CR>
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
+
+"easier vim splits C-w j => c-j
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 "these are not working. @todo: find better beautifier
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
