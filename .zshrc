@@ -135,6 +135,7 @@ alias hours="python ~/timesheet.py"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/"
+alias tm="tmux attach -t base || tmux new -s base"
 alias vmrun="/Applications/VMware\ Fusion.app/Contents/Library/vmrun"
 export DEB_PATH=~/Documents/Virtual\ Machines.localized/Debian\ 6\ 64-bit.vmwarevm
 alias vm="vmrun -T fusion start \$DEB_PATH"

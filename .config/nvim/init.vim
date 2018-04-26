@@ -1,4 +1,5 @@
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -28,7 +29,6 @@ Plug 'dmdque/solidity.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/ag'
 Plug 'ervandew/supertab'
-Plug 'isnowfy/python-vim-instant-markdown'
 Plug 'junegunn/fzf'
 Plug 'lilydjwg/colorizer'
 Plug 'maksimr/vim-jsbeautify'
@@ -37,6 +37,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
+Plug 'suan/vim-instant-markdown'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
@@ -69,8 +70,9 @@ let g:airline_powerline_fonts = 1
 let g:ale_linters = {'javascript': ['eslint']}
 let g:ctrlp_working_path_mode = 0
 let g:deoplete#enable_at_startup = 1
-let g:indentLine_setConceal = 0
+let g:indentLine_fileTypeExclude = ['json', 'md', 'markdown']
 let g:user_emmet_leader_key='<C-M>'
+let g:instant_markdown_autostart = 0    ":InstantMarkdownPreview
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set
@@ -91,7 +93,7 @@ set incsearch   "search as characters are entered
 set laststatus=2
 set lazyredraw    "redraw only when we need to
 set linebreak
-set listchars=tab:▸\ ,eol:¬,space:·,extends:»,precedes:«,trail:•
+set listchars=tab:▸\ ,eol:¬,space:·,extends:»,precedes:«,trail:•,nbsp:+
 set modelines=0
 set mouse=a
 set nocompatible
@@ -181,6 +183,17 @@ nmap <leader>n :set number!<CR>
 
 nmap <leader>s :set spell!<CR>
 
+function ToggleMarkdown()
+  if &conceallevel == 0
+    set conceallevel=2
+  else
+    set conceallevel=0
+  endif
+endfunction
+
+nmap <leader>m :call ToggleMarkdown()<CR>
+command Mp InstantMarkdownPreview
+
 function TabToggle()
   if &expandtab
     set noexpandtab
@@ -190,7 +203,7 @@ function TabToggle()
   retab!
 endfunction
 
-nmap <leader>e :execute TabToggle()<CR>
+nmap <leader>e :call TabToggle()<CR>
 
 "this lets you type CTRL-C to add a newline between brackets
 imap <C-c> <CR><Esc>O
