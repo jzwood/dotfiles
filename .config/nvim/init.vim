@@ -136,6 +136,12 @@ colorscheme gruvbox
 
 highlight NonText guifg=#1a4a59   "Invisible character colors
 highlight SpecialKey guifg=#4a4a59
+highlight Comment cterm=italic
+
+highlight i cterm=italic
+highlight b cterm=bold
+call matchadd('b', '\*.\{-}\*')
+call matchadd('i', '_.\{-}_')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapping
@@ -183,15 +189,12 @@ nmap <leader>n :set number!<CR>
 
 nmap <leader>s :set spell!<CR>
 
-function ToggleMarkdown()
-  if &conceallevel == 0
-    set conceallevel=2
-  else
-    set conceallevel=0
-  endif
-endfunction
+"faster system copy
+vnoremap <C-c> "+y
 
-nmap <leader>m :call ToggleMarkdown()<CR>
+"faster system cut
+vnoremap <C-x> "+d
+
 command Mp InstantMarkdownPreview
 
 function TabToggle()
@@ -208,3 +211,8 @@ nmap <leader>e :call TabToggle()<CR>
 "this lets you type CTRL-C to add a newline between brackets
 imap <C-c> <CR><Esc>O
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Notes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"[s          moves to the last spelling mistake
+"z=          see spelling suggestions
