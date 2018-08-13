@@ -1,5 +1,3 @@
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -9,6 +7,7 @@ if !has("nvim")
     Plug 'Shougo/deoplete.nvim'
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'rbgrouleff/bclose.vim'
 else
   call plug#begin('~/.config/nvim/plugged')
 endif
@@ -22,22 +21,23 @@ Plug 'beigebrucewayne/skull-vim'
 Plug 'morhetz/gruvbox'
 
 Plug 'Raimondi/delimitMate'
-Plug 'beautify-web/js-beautify'
 Plug 'bling/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dmdque/solidity.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'chiel92/vim-autoformat'
 Plug 'ervandew/ag'
 Plug 'ervandew/supertab'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'junegunn/fzf'
 Plug 'lilydjwg/colorizer'
-Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
+Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'suan/vim-instant-markdown'
+Plug 'shime/vim-livedown'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
@@ -59,20 +59,27 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let NERDTreeShowHidden=1
+let NERDTreeMapOpenInTab='<ENTER>'
 let NERDTreeIgnore=['\.pyc']
-let NERDTreeHijackNetrw = 0
+let NERDTreeHijackNetrw =0
 
-let g:seoul256_background = 235
+let g:livedown_port = 1337
+let g:livedown_browser = 'safari'
+
 let g:NERDTreeLimitedSyntax = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:ale_linters = {'javascript': ['eslint']}
+let g:autoformat_verbosemode=1
 let g:ctrlp_working_path_mode = 0
 let g:deoplete#enable_at_startup = 1
 let g:indentLine_fileTypeExclude = ['json', 'md', 'markdown']
+let g:indentLine_setConceal = 0
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog  = '/usr/local/bin/python2'
+let g:seoul256_background = 235
 let g:user_emmet_leader_key='<C-M>'
-let g:instant_markdown_autostart = 0    ":InstantMarkdownPreview
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set
@@ -140,8 +147,8 @@ highlight Comment cterm=italic
 
 highlight i cterm=italic
 highlight b cterm=bold
-call matchadd('b', '\*.\{-}\*')
-call matchadd('i', '_.\{-}_')
+call matchadd('b', '\*\*.\{-}\*\*')
+call matchadd('i', '__.\{-}__')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapping
@@ -167,15 +174,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"these are not working. @todo: find better beautifier
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-"autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType hbs noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-autocmd FileType scss noremap <buffer> <c-f> :call CSSBeautify()<cr>
-
 " Fast saving
 nmap <leader>w :w!<cr>
 " Fast quitting
@@ -189,13 +187,17 @@ nmap <leader>n :set number!<CR>
 
 nmap <leader>s :set spell!<CR>
 
+"auto format ie beautify
+noremap <C-f> :Autoformat<CR>
+
+" start markdown preview
+nmap <leader>p :LivedownToggle<CR>
+
 "faster system copy
 vnoremap <C-c> "+y
 
 "faster system cut
 vnoremap <C-x> "+d
-
-command Mp InstantMarkdownPreview
 
 function TabToggle()
   if &expandtab

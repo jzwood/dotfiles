@@ -16,18 +16,15 @@ indent_style = space
 indent_size = 4
 
 [**.js]
-;vim:path=~/.config/nvim/plugged/js-beautify/js/lib/beautify.js
 bin=node
 indent_style = space
 indent_size = 2
 
 [**.css]
-;vim:path=~/.config/nvim/plugged/js-beautify/js/lib/beautify-css.js
 indent_style = space
 indent_size = 2
 
 [**.html]
-;vim:path=~/.config/nvim/plugged/js-beautify/js/lib/beautify-html.js
 ;vim:max_char=78:brace_style=expand
 indent_style = space
 indent_size = 2
