@@ -136,13 +136,16 @@ alias hours="python ~/timesheet.py"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
+alias sp="svn diff --internal-diff >"
+alias ap="patch -p0 -i"
 alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/"
 alias tm="tmux attach -t base || tmux new -s base"
 alias npmls="npm list -g --depth 0"
 
-export testnet=~/Library/Ethereum/testnet/geth.ipc
-export rinkeby=~/Library/Ethereum/rinkeby/geth.ipc
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 export NVM_DIR="/Users/jake.wood/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=/Users/jake.wood/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
