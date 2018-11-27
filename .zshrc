@@ -1,12 +1,12 @@
-. "$( brew --prefix idk-core )/profile.bash"
-eval "$(hub alias -s)"
-
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jake.wood/.oh-my-zsh
-. ~/.secrets
+export ZSH=/Users/jakew/.oh-my-zsh
+# . ~/.secrets
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -54,7 +54,9 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,15 +117,7 @@ except:
 """ | say
 }
 
-ldap () {
-	export LDAP_PASSWORD="$( ac-password get ldap )"
-	echo "LDAP exported"
-}
 
-syncgeth () {
-  echo 'Rinkeby syncing in background.\n"screen -x geth" to see progress.\nCTRL+a+d to toggle away.'
-  screen -dmS geth geth --rinkeby --syncmode "fast" --rpc --rpcapi db,eth,net,web3,personal --cache=1024 --rpcport 8545 --rpcaddr 127.0.0.1 --rpccorsdomain "*"
-}
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
@@ -131,21 +125,34 @@ alias vt="nvim ~/.tmux.conf"
 alias vi='nvim'
 alias vv="nvim ~/.config/nvim/init.vim"
 alias vn="nvim ~/my_notes"
-alias wo="cd ~/Documents/works"
-alias hours="python ~/timesheet.py"
+
+alias wo="cd ~/Documents/work"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
+alias cap="cd ~/captricity"
+
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
+
 alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/"
 alias tm="tmux attach -t base || tmux new -s base"
 alias npmls="npm list -g --depth 0"
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# pwgen -y -s 15 1
+# openssl rand -base64 15
 
-export NVM_DIR="/Users/jake.wood/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+# pyenv
+export PYENV_ROOT=/usr/local/var/pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
 # heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=/Users/jake.wood/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+HEROKU_AC_ZSH_SETUP_PATH=/Users/jakew/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# captricity / docker
+export ROOT=~/captricity
