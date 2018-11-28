@@ -1,12 +1,19 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
-
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jakew/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
+# captricity / docker
+export ROOT=~/captricity
+
+. $ROOT/.cap_rc
 # . ~/.secrets
+
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/var/pyenv/shims/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/var/pyenv/shims/virtualenv
+source /usr/local/bin/virtualenvwrapper.sh
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -23,7 +30,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
- #export UPDATE_ZSH_DAYS=13
+#export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -55,7 +62,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions
+git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -65,7 +72,7 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
- export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -98,25 +105,23 @@ zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP arch
 
 npmreg() {
   if [ "$1" = "apple" ]; then
-      T1="https://npm.apple.com/"
+    T1="https://npm.apple.com/"
   else
-      T1="https://registry.npmjs.org/"
+    T1="https://registry.npmjs.org/"
   fi
   npm config set registry "$T1"
   npm config get registry
 }
 
 chuck() {
-  curl --silent http://api.icndb.com/jokes/random | python -c """
+  curl --silent http://api.icndb.com/jokes/random | python3 -c """
 try:
   import sys, json
-  from HTMLParser import HTMLParser as h
-  print h().unescape(json.load(sys.stdin)['value']['joke'])
+  print(json.load(sys.stdin)['value']['joke'])
 except:
-  print 'Chuck Norris bashed your bash profile. No facts available.'
+  print('Chuck Norris bashed your bash profile. No facts available.')
 """ | say
 }
-
 
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
@@ -130,7 +135,9 @@ alias wo="cd ~/Documents/work"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
+
 alias cap="cd ~/captricity"
+alias dcc="docker-compose"
 
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
@@ -153,6 +160,3 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jakew/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# captricity / docker
-export ROOT=~/captricity
