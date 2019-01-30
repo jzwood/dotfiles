@@ -62,8 +62,9 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions
+	git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions
 )
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,6 +139,10 @@ alias db="cd ~/Dropbox"
 
 alias cap="cd ~/captricity"
 alias dcc="docker-compose"
+alias arabica="cd $ROOT/Arabica"
+alias conductor="cd $ROOT/conductor"
+alias cipher="cd $ROOT/Cipher"
+alias sieve="cd $ROOT/sieve"
 
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
@@ -145,6 +150,7 @@ alias ap="patch -p0 -i"
 alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/"
 alias tm="tmux attach -t base || tmux new -s base"
 alias npmls="npm list -g --depth 0"
+alias pd=pretty-diff
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # pwgen -y -s 15 1

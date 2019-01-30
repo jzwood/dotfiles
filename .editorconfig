@@ -20,6 +20,10 @@ bin=node
 indent_style = space
 indent_size = 2
 
+[**.ts]
+indent_style = space
+indent_size = 4
+
 [**.css]
 indent_style = space
 indent_size = 2
@@ -28,6 +32,10 @@ indent_size = 2
 ;vim:max_char=78:brace_style=expand
 indent_style = space
 indent_size = 2
+
+[**.pug]
+indent_style = space
+indent_size = 4
 
 [**.json]
 indent_style = space

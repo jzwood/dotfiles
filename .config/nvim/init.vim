@@ -14,34 +14,27 @@ endif
 
 " THEMES
 Plug 'DemonCloud/J'
-Plug 'devnul1/heman'
+"Plug 'devnul1/heman'
 Plug 'dracula/vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'beigebrucewayne/skull-vim'
 Plug 'morhetz/gruvbox'
 
-Plug 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc
 Plug 'bling/vim-airline'
 Plug 'chiel92/vim-autoformat'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dmdque/solidity.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/ag'
 Plug 'ervandew/supertab'
-Plug 'francoiscabrol/ranger.vim'
 Plug 'joereynolds/sqhell.vim'
-Plug 'junegunn/fzf'
-Plug 'lilydjwg/colorizer'
-Plug 'mattn/emmet-vim'
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
+Plug 'lilydjwg/colorizer' "colors hex values
+Plug 'mattn/emmet-vim' "emmet
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'shime/vim-livedown'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 Plug 'yggdroot/indentline'
 
@@ -72,14 +65,15 @@ let g:NERDTreeLimitedSyntax = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:ale_linters = {'javascript': ['eslint'], 'typescript': ['tslint'], 'python': ['flake8']}
+let g:ale_python_flake8_options = '--config ~/.config/nvim/plugin/flake8.cfg'
+let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8']}
 let g:autoformat_verbosemode=1
-let g:ctrlp_working_path_mode = 0
 let g:deoplete#enable_at_startup = 1
 let g:indentLine_fileTypeExclude = ['json', 'md', 'markdown']
 let g:indentLine_setConceal = 0
-let g:python3_host_prog = '/usr/local/bin/python3'
-let g:python_host_prog  = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/var/pyenv/versions/3.6.4/bin/python3'
+let g:python_host_prog = '/usr/local/var/pyenv/versions/2.7/bin/python'
+let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/2.7/bin/python'
 let g:seoul256_background = 235
 let g:user_emmet_leader_key='<C-M>'
 
@@ -87,14 +81,12 @@ let g:user_emmet_leader_key='<C-M>'
 " Set
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set autoindent
 set background=dark
 set backspace=indent,eol,start
-set colorcolumn=80
+set colorcolumn=80,120
 set complete+=kspell
 set cursorline    "highlight current line
 set encoding=utf-8
-set expandtab
 set formatoptions=qrn1
 set hidden
 set ignorecase
@@ -107,7 +99,6 @@ set modelines=0
 set mouse=a
 set nocompatible
 set noerrorbells
-set noexpandtab
 set nohlsearch
 set number    "show line numbers
 set ruler
@@ -116,9 +107,6 @@ set shiftwidth=2
 set showcmd   "show command in bottom bar
 set showmatch   " highlight matching [{()}]}]
 set smartcase
-set smartindent
-set softtabstop=2
-set tabstop=2
 "set textwidth=79
 set title
 set ttyfast
@@ -128,6 +116,13 @@ set wildignore+=*.pyc,*.o,*.class,*.lo,.git,*/coverage/*,*/node_modules/*,*/vend
 set wildmenu    "visual autocomplete for command menu
 set wildmode=list:longest
 set wrap linebreak nolist
+
+set autoindent
+set smartindent
+set softtabstop=0
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 setlocal spell spelllang=en_us
 set list
@@ -186,6 +181,10 @@ nmap <leader>wq :wqa!<cr>
 nmap <leader>x :x<cr>
 nmap <leader>l :set list!<CR>
 nmap <leader>n :set number!<CR>
+"faster system copy
+vnoremap <C-c> "+y
+"faster system cut
+vnoremap <C-x> "+d
 
 nmap <leader>s :set spell!<CR>
 
@@ -195,11 +194,7 @@ noremap <C-f> :Autoformat<CR>
 " start markdown preview
 nmap <leader>p :LivedownToggle<CR>
 
-"faster system copy
-vnoremap <C-c> "+y
-
-"faster system cut
-vnoremap <C-x> "+d
+ab ip import ipdb; ipdb.set_trace()
 
 function TabToggle()
   if &expandtab
