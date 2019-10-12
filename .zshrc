@@ -1,12 +1,14 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH="$(yarn global bin):$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # captricity / docker
 export ROOT=~/captricity
+export GIRI_HOME=$ROOT/giri
 
-. $ROOT/.cap_rc
+. $ROOT/.cap_rc # exports github token
 # . ~/.secrets
 
 export WORKON_HOME=$HOME/.virtualenvs
@@ -14,10 +16,13 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/local/var/pyenv/shims/python
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/var/pyenv/shims/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
 
+source ~/.iterm2_shell_integration.zsh
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode status virtualenv)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -62,7 +67,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions
+    git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions vi-mode
 )
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
@@ -114,6 +119,14 @@ npmreg() {
   npm config get registry
 }
 
+runtsserver() {
+    SERVER_LIVE=$(ps aux | grep -o bin.tsserver | wc -l)
+    if [ $SERVER_LIVE = "1" ]; then
+        echo "starting tsserver in background..."
+        tsserver &
+    fi
+}
+
 chuck() {
   curl --silent http://api.icndb.com/jokes/random | python3 -c """
 try:
@@ -124,6 +137,14 @@ except:
 """ | say
 }
 
+cpnotes() {
+    cb >> $ROOT/notes/$1.txt
+}
+
+pipd() {
+    pip install $1
+    pip freeze > requirements.txt
+}
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
@@ -137,8 +158,11 @@ alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
 
-alias cap="cd ~/captricity"
-alias dcc="docker-compose"
+alias cap="cd $ROOT"
+alias de="cd $ROOT/devenv; workon devenv"
+alias dc="docker-compose"
+alias cibash="de; dc exec --user root cipherworker bash"
+alias arabash="de; dc exec --user root arabicaweb bash"
 alias arabica="cd $ROOT/Arabica"
 alias conductor="cd $ROOT/conductor"
 alias cipher="cd $ROOT/Cipher"
@@ -151,10 +175,20 @@ alias swp="echo \"ls ~/.local/share/nvim/swap/\" && ls ~/.local/share/nvim/swap/
 alias tm="tmux attach -t base || tmux new -s base"
 alias npmls="npm list -g --depth 0"
 alias pd=pretty-diff
+alias gk="python ~/.mfa/getkey.py"
+alias giri="cd $GIRI_HOME/giri; workon giri; source ~/.giri_profile"
+alias gbb="git branch | bat"
+alias notes="cap;cd notes"
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # pwgen -y -s 15 1
 # openssl rand -base64 15
+
+# Move next only if `homebrew` is installed
+if command -v brew >/dev/null 2>&1; then
+    # Load rupa's z if installed
+    [ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -163,6 +197,12 @@ export NVM_DIR="$HOME/.nvm"
 export PYENV_ROOT=/usr/local/var/pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+eval $(thefuck --alias)
+
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jakew/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+runtsserver # starts typescript linting server in background
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

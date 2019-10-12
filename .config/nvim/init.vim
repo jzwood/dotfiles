@@ -22,6 +22,7 @@ Plug 'morhetz/gruvbox'
 
 Plug 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc
 Plug 'bling/vim-airline'
+Plug 'chaoren/vim-wordmotion'
 Plug 'chiel92/vim-autoformat'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -34,6 +35,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'shime/vim-livedown'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'w0rp/ale'
 Plug 'yggdroot/indentline'
@@ -61,18 +63,21 @@ let NERDTreeHijackNetrw =0
 let g:livedown_port = 1337
 let g:livedown_browser = 'safari'
 
+let g:typescript_indent_disable = 1
 let g:NERDTreeLimitedSyntax = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:ale_python_flake8_options = '--config ~/.config/nvim/plugin/flake8.cfg'
-let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8']}
+let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8'], 'typescript': ['eslint', 'tsserver', 'typecheck']}
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
 let g:autoformat_verbosemode=1
 let g:deoplete#enable_at_startup = 1
 let g:indentLine_fileTypeExclude = ['json', 'md', 'markdown']
 let g:indentLine_setConceal = 0
 let g:python3_host_prog = '/usr/local/var/pyenv/versions/3.6.4/bin/python3'
-let g:python_host_prog = '/usr/local/var/pyenv/versions/2.7/bin/python'
+let g:python_host_prog = '/usr/local/var/pyenv/versions/2.7.8/bin/python'
 let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/2.7/bin/python'
 let g:seoul256_background = 235
 let g:user_emmet_leader_key='<C-M>'
@@ -118,7 +123,7 @@ set wildmode=list:longest
 set wrap linebreak nolist
 
 set autoindent
-set smartindent
+"set smartindent "leave turned off - messes with autocmd
 set softtabstop=0
 set tabstop=4
 set shiftwidth=4
@@ -127,6 +132,8 @@ set expandtab
 setlocal spell spelllang=en_us
 set list
 
+"autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
+autocmd FileType python setlocal tabstop=4 shiftwidth=4
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -144,8 +151,10 @@ highlight Comment cterm=italic
 
 highlight i cterm=italic
 highlight b cterm=bold
-call matchadd('b', '\*\*.\{-}\*\*')
-call matchadd('i', '__.\{-}__')
+highlight MatchParen cterm=bold ctermbg=white ctermfg=black
+
+call matchadd('b', '\*.\{-}\*')
+call matchadd('i', '_.\{-}_')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapping
