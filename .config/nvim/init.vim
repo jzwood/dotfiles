@@ -104,7 +104,6 @@ set modelines=0
 set mouse=a
 set nocompatible
 set noerrorbells
-set nohlsearch
 set number    "show line numbers
 set ruler
 set scrolloff=3
@@ -180,6 +179,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
 " Fast saving
 nmap <leader>w :w!<cr>
 " Fast quitting
@@ -198,7 +200,7 @@ vnoremap <C-x> "+d
 nmap <leader>s :set spell!<CR>
 
 "auto format ie beautify
-noremap <C-f> :Autoformat<CR>
+noremap <C-b> :Autoformat<CR>
 
 " start markdown preview
 nmap <leader>p :LivedownToggle<CR>
