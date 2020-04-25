@@ -178,6 +178,9 @@ alias npmls="npm list -g --depth 0"
 alias pd=pretty-diff
 alias gk="python ~/.mfa/getkey.py"
 alias giri="cd $GIRI_HOME/giri; workon giri; source ~/.giri_profile"
+alias imsprod="giri; ./manage.py ssh -P imsprod celery-01"
+alias shreddrproduction="giri && ./manage.py ssh -P shreddrproduction celeryblank-02"
+alias cipherproduction="giri && ./manage.py ssh -P cipherproduction celeryblank-01"
 alias gbb="git branch | bat"
 alias notes="cap;cd notes"
 
@@ -197,8 +200,7 @@ export NVM_DIR="$HOME/.nvm"
 # pyenv
 export PYENV_ROOT=/usr/local/var/pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
-eval $(thefuck --alias)
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jakew/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;

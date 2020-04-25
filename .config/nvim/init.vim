@@ -19,6 +19,9 @@ Plug 'dracula/vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'beigebrucewayne/skull-vim'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/vim-color-forest-night'
+Plug 'rafi/awesome-vim-colorschemes' "https://vimawesome.com/plugin/awesome-vim-colorschemes
+Plug 'flazz/vim-colorschemes'
 
 Plug 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc
 Plug 'bling/vim-airline'
@@ -30,6 +33,7 @@ Plug 'ervandew/ag'
 Plug 'ervandew/supertab'
 Plug 'joereynolds/sqhell.vim'
 Plug 'lilydjwg/colorizer' "colors hex values
+Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim' "emmet
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -137,12 +141,12 @@ autocmd FileType python setlocal tabstop=4 shiftwidth=4
 " Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Favorite Colorschemes (Ranked order)
+colorscheme forest-night
+"colorscheme gruvbox
 "colo seoul256
-"colorscheme J
+"colorscheme snow
 "colorscheme dracula
-colorscheme gruvbox
-"colorscheme heman
-"colorscheme skull
 
 highlight NonText guifg=#1a4a59   "Invisible character colors
 highlight SpecialKey guifg=#4a4a59
