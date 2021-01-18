@@ -146,6 +146,17 @@ pipd() {
     pip freeze > requirements.txt
 }
 
+find_children_images () {
+  # input is image tag
+  docker inspect --format='{{.Id}} {{.Parent}}' $(docker images --filter since=$1 -q)
+}
+
+gitdo () {
+  # bulk git branch operation with startswith filter
+  # e.g. `gitdo -d cf-` will `git branch -d` against all branches that start with "cf-"
+  git branch | grep ^\ \ $2 | xargs git branch $1
+}
+
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
 alias vt="nvim ~/.tmux.conf"
@@ -159,7 +170,7 @@ alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
 
 alias cap="cd $ROOT"
-alias de="cd $ROOT/devenv; workon devenv"
+alias de="cd $ROOT/devenv; workon devenv2"
 alias dc="docker-compose"
 alias arbash="de; dc exec --user root arabicaweb bash"
 alias cibash="de; dc exec --user root cipherweb bash"
@@ -168,6 +179,8 @@ alias arabica="cd $ROOT/Arabica"
 alias conductor="cd $ROOT/conductor"
 alias cipher="cd $ROOT/Cipher"
 alias sieve="cd $ROOT/sieve"
+alias intake="cd $ROOT/intake"
+alias captsule="cd $ROOT/captsule"
 
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
@@ -209,3 +222,5 @@ HEROKU_AC_ZSH_SETUP_PATH=/Users/jakew/Library/Caches/heroku/autocomplete/zsh_set
 runtsserver # starts typescript linting server in background
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export PATH=/Users/jakew/.local/bin:$PATH

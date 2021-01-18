@@ -2,6 +2,9 @@
 " Plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:polyglot_disabled = []
+let g:polyglot_is_disabled = 0
+
 if !has("nvim")
   call plug#begin('~/.vim/plugged')
     Plug 'Shougo/deoplete.nvim'
@@ -35,6 +38,7 @@ Plug 'joereynolds/sqhell.vim'
 Plug 'lilydjwg/colorizer' "colors hex values
 Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim' "emmet
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -72,10 +76,12 @@ let g:NERDTreeLimitedSyntax = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
+
 let g:ale_python_flake8_options = '--config ~/.config/nvim/plugin/flake8.cfg'
 let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8'], 'typescript': ['eslint', 'tsserver', 'typecheck']}
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_text_changed = 'never'
+
 let g:autoformat_verbosemode=1
 let g:deoplete#enable_at_startup = 1
 let g:indentLine_fileTypeExclude = ['json', 'md', 'markdown']
@@ -210,6 +216,7 @@ noremap <C-b> :Autoformat<CR>
 nmap <leader>p :LivedownToggle<CR>
 
 ab ip import ipdb; ipdb.set_trace()
+ab pu import pudb; pu.db
 
 function TabToggle()
   if &expandtab
