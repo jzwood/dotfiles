@@ -1,0 +1,16 @@
+# This is Git's per-user configuration file.
+[user]
+  name = Jake Wood
+  email = jzwood14@yahoo.com
+[difftool]
+  prompt = false
+[alias]
+  st = status -s
+[alias]
+  co = checkout
+[alias]
+  le = log --oneline --decorate
+[alias]
+  graph = log --graph --all --decorate --stat --date=iso
+[pull]
+  ff = only
