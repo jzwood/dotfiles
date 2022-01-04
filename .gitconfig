@@ -7,10 +7,14 @@
 [alias]
   st = status -s
 [alias]
+  sw = switch
+[alias]
   co = checkout
 [alias]
-  le = log --oneline --decorate
+  le = log --oneline
 [alias]
-  graph = log --graph --all --decorate --stat --date=iso
+  graph = log --graph --all --stat --date=iso
 [pull]
   ff = only
+[init]
+	defaultBranch = main

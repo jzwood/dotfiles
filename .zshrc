@@ -5,16 +5,12 @@ export PATH="$(yarn global bin):$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # captricity / docker
-export ROOT=~/captricity
-export GIRI_HOME=$ROOT/giri
+export ROOT=~/vps
 
-. $ROOT/.cap_rc # exports github token
+# . ~/.gitrc # exports github token
 # . ~/.secrets
 
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/var/pyenv/shims/python
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/var/pyenv/shims/virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
 
 source ~/.iterm2_shell_integration.zsh
 
@@ -67,10 +63,15 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode status virtualenv)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions vi-mode
+  git
+  colored-man-pages
+  zsh-autosuggestions
+  vi-mode
+  zsh-syntax-highlighting
 )
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
+ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -103,6 +104,11 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 filter(){
   svn status | grep ^"$1" | awk '{print $2}' | xargs "${@:2}"
+}
+
+gbv() {
+  git branch | grep "^ " | awk '{print "git branch -d " $1}' | vi
+  # :%w !bash
 }
 
 svndiff () { svn diff $@ | colordiff | less -R; }
@@ -151,10 +157,30 @@ find_children_images () {
   docker inspect --format='{{.Id}} {{.Parent}}' $(docker images --filter since=$1 -q)
 }
 
-gitdo () {
+gbdo () {
   # bulk git branch operation with startswith filter
   # e.g. `gitdo -d cf-` will `git branch -d` against all branches that start with "cf-"
   git branch | grep ^\ \ $2 | xargs git branch $1
+}
+
+gn () {
+  git branch | grep "^ " | head -n $1 | tail -n 1
+}
+
+gbn () {
+  gn $1 | xargs git branch $2
+}
+
+gcn () {
+  gn $1 | xargs git checkout
+}
+
+renew_token () {
+  if [ "$1" = "" ]; then
+    mix core.tenant user-list
+  else
+    mix authx.key acc $1 | grep bearer | cb
+  fi
 }
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
@@ -163,24 +189,17 @@ alias vt="nvim ~/.tmux.conf"
 alias vi='nvim'
 alias vv="nvim ~/.config/nvim/init.vim"
 alias vn="nvim ~/my_notes"
+alias nag="noglob ag"
 
 alias wo="cd ~/Documents/work"
 alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
 
-alias cap="cd $ROOT"
-alias de="cd $ROOT/devenv; workon devenv2"
+alias vps="cd $ROOT"
 alias dc="docker-compose"
-alias arbash="de; dc exec --user root arabicaweb bash"
-alias cibash="de; dc exec --user root cipherweb bash"
-alias sibash="de; dc exec --user root sieveweb bash"
-alias arabica="cd $ROOT/Arabica"
-alias conductor="cd $ROOT/conductor"
-alias cipher="cd $ROOT/Cipher"
-alias sieve="cd $ROOT/sieve"
-alias intake="cd $ROOT/intake"
-alias captsule="cd $ROOT/captsule"
+alias be="cd $ROOT/adi-web-backend"
+alias fe="cd $ROOT/adi-web-frontend"
 
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
@@ -195,8 +214,16 @@ alias imsprod="giri; ./manage.py ssh -P imsprod celery-01"
 alias shreddrproduction="giri && ./manage.py ssh -P shreddrproduction celeryblank-02"
 alias cipherproduction="giri && ./manage.py ssh -P cipherproduction celeryblank-01"
 alias gbb="git branch | bat"
-alias notes="cap;cd notes"
+alias notes="cd $ROOT/notes"
 
+alias dial="mix compile && MIX_ENV=test mix dialyzer --ignore-exit-status --format short | tail -n 2"
+alias da="$ROOT/adi-stack/bin/da"
+alias tac="bat $ROOT/notes/tachyons.css"
+
+alias elix="elixir --name adiweb-svc@127.0.0.1 --cookie nomnom -S mix phx.server"
+alias iexpry="iex --name adiweb-cli@127.0.0.1 --cookie nomnom --remsh adiweb-svc@127.0.0.1"
+
+alias ll='ls -lha'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # pwgen -y -s 15 1
 # openssl rand -base64 15
@@ -208,12 +235,8 @@ if command -v brew >/dev/null 2>&1; then
 fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# pyenv
-export PYENV_ROOT=/usr/local/var/pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jakew/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
@@ -223,4 +246,9 @@ runtsserver # starts typescript linting server in background
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
 export PATH=/Users/jakew/.local/bin:$PATH
+export ERL_AFLAGS="-kernel shell_history enabled"
+export CHUMAK_CURVE_LIB="enacl"

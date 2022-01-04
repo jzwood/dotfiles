@@ -17,14 +17,14 @@ endif
 
 " THEMES
 Plug 'DemonCloud/J'
-"Plug 'devnul1/heman'
-Plug 'dracula/vim'
-Plug 'junegunn/seoul256.vim'
 Plug 'beigebrucewayne/skull-vim'
-Plug 'morhetz/gruvbox'
-Plug 'sainnhe/vim-color-forest-night'
-Plug 'rafi/awesome-vim-colorschemes' "https://vimawesome.com/plugin/awesome-vim-colorschemes
+Plug 'dracula/vim'
 Plug 'flazz/vim-colorschemes'
+Plug 'junegunn/seoul256.vim'
+Plug 'morhetz/gruvbox'
+Plug 'rafi/awesome-vim-colorschemes' "https://vimawesome.com/plugin/awesome-vim-colorschemes
+Plug 'sainnhe/vim-color-forest-night'
+"Plug 'devnul1/heman'
 
 Plug 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc
 Plug 'bling/vim-airline'
@@ -45,6 +45,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'shime/vim-livedown'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
+Plug 'vim-test/vim-test'
 Plug 'w0rp/ale'
 Plug 'yggdroot/indentline'
 
@@ -86,12 +87,17 @@ let g:autoformat_verbosemode=1
 let g:deoplete#enable_at_startup = 1
 let g:indentLine_fileTypeExclude = ['json', 'md', 'markdown']
 let g:indentLine_setConceal = 0
-let g:python3_host_prog = '/usr/local/var/pyenv/versions/3.6.4/bin/python3'
-let g:python_host_prog = '/usr/local/var/pyenv/versions/2.7.8/bin/python'
-let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/2.7/bin/python'
+let g:python3_host_prog='/usr/local/bin/python3'
+"let g:python3_host_prog = '/usr/local/var/pyenv/versions/3.6.4/bin/python3'
+"let g:python_host_prog = '/usr/local/var/pyenv/versions/2.7.8/bin/python'
+"let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/2.7/bin/python'
 let g:seoul256_background = 235
 let g:user_emmet_leader_key='<C-M>'
 
+nmap <silent> t<C-f> :TestFile<CR>
+"let test#strategy = "vimterminal"
+let test#enabled_runners = ["elixir#exunit"]
+let g:test#runner_commands = ["ExUnit"]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -148,7 +154,7 @@ autocmd FileType python setlocal tabstop=4 shiftwidth=4
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Favorite Colorschemes (Ranked order)
-colorscheme forest-night
+colorscheme everforest "forest-night
 "colorscheme gruvbox
 "colo seoul256
 "colorscheme snow
@@ -217,6 +223,8 @@ nmap <leader>p :LivedownToggle<CR>
 
 ab ip import ipdb; ipdb.set_trace()
 ab pu import pudb; pu.db
+ab ep require IEx; IEx.pry
+
 
 function TabToggle()
   if &expandtab
@@ -231,6 +239,9 @@ nmap <leader>e :call TabToggle()<CR>
 
 "this lets you type CTRL-C to add a newline between brackets
 imap <C-c> <CR><Esc>O
+
+autocmd BufNewFile,BufRead *.po set syntax=off
+"highlight Normal ctermfg=white ctermbg=black
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Notes
