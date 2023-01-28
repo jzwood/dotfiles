@@ -5,6 +5,8 @@
 let g:polyglot_disabled = []
 let g:polyglot_is_disabled = 0
 
+call pathogen#infect()
+
 if !has("nvim")
   call plug#begin('~/.vim/plugged')
     Plug 'Shougo/deoplete.nvim'
@@ -19,7 +21,7 @@ endif
 Plug 'DemonCloud/J'
 Plug 'beigebrucewayne/skull-vim'
 Plug 'dracula/vim'
-Plug 'flazz/vim-colorschemes'
+"Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/seoul256.vim'
 Plug 'morhetz/gruvbox'
 Plug 'rafi/awesome-vim-colorschemes' "https://vimawesome.com/plugin/awesome-vim-colorschemes
@@ -32,6 +34,7 @@ Plug 'chaoren/vim-wordmotion'
 Plug 'chiel92/vim-autoformat'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'elixir-lang/vim-elixir'
 Plug 'ervandew/ag'
 Plug 'ervandew/supertab'
 Plug 'joereynolds/sqhell.vim'
@@ -39,6 +42,7 @@ Plug 'lilydjwg/colorizer' "colors hex values
 Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim' "emmet
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -79,7 +83,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 
 let g:ale_python_flake8_options = '--config ~/.config/nvim/plugin/flake8.cfg'
-let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8'], 'typescript': ['eslint', 'tsserver', 'typecheck']}
+let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8'], 'typescript': ['eslint', 'tsserver', 'typecheck'], 'haskell': ['cabal_ghc', 'cspell', 'ghc', 'ghc_mod', 'hdevtools', 'hie', 'hlint', 'hls', 'stack_build', 'stack_ghc']}
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
@@ -92,7 +96,7 @@ let g:python3_host_prog='/usr/local/bin/python3'
 "let g:python_host_prog = '/usr/local/var/pyenv/versions/2.7.8/bin/python'
 "let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/2.7/bin/python'
 let g:seoul256_background = 235
-let g:user_emmet_leader_key='<C-M>'
+"let g:user_emmet_leader_key='<C-M>'
 
 nmap <silent> t<C-f> :TestFile<CR>
 "let test#strategy = "vimterminal"
@@ -221,10 +225,9 @@ noremap <C-b> :Autoformat<CR>
 " start markdown preview
 nmap <leader>p :LivedownToggle<CR>
 
-ab ip import ipdb; ipdb.set_trace()
-ab pu import pudb; pu.db
+"ab ip import ipdb; ipdb.set_trace()
+"ab pu import pudb; pu.db
 ab ep require IEx; IEx.pry
-
 
 function TabToggle()
   if &expandtab
@@ -240,7 +243,6 @@ nmap <leader>e :call TabToggle()<CR>
 "this lets you type CTRL-C to add a newline between brackets
 imap <C-c> <CR><Esc>O
 
-autocmd BufNewFile,BufRead *.po set syntax=off
 "highlight Normal ctermfg=white ctermbg=black
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

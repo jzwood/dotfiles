@@ -5,7 +5,7 @@ export PATH="$(yarn global bin):$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # captricity / docker
-export ROOT=~/vps
+export ROOT=~/cato
 
 # . ~/.gitrc # exports github token
 # . ~/.secrets
@@ -175,13 +175,30 @@ gcn () {
   gn $1 | xargs git checkout
 }
 
+#renew_token () {
+  #if [ "$1" = "" ]; then
+    #mix core.tenant user-list
+  #else
+    #mix authx.key acc $1 | grep bearer | cb
+  #fi
+#}
+
 renew_token () {
-  if [ "$1" = "" ]; then
-    mix core.tenant user-list
+  UUID=$(mix core.tenant user-list | grep ${1:-auth} | head -n 1 | awk '{print $1}')
+  if [ "$UUID" = "" ]; then
+    echo "No user found"
   else
-    mix authx.key acc $1 | grep bearer | cb
+    TOKEN=$(mix authx.key acc $UUID | grep bearer)
+    echo $TOKEN | pbcopy
+    echo "token copied to clipboard: $TOKEN"
   fi
 }
+
+find_replace_all() {
+  ag $1 -l | xargs sed -i '' "s/$1/$2/g"
+}
+
+# uuidgen # generates UUID
 
 alias sz="source ~/.zshrc && echo 'zshrc sourced'"
 alias vz="nvim ~/.zshrc"
@@ -196,10 +213,10 @@ alias dt="cd ~/Desktop"
 alias dv="cd ~/Development"
 alias db="cd ~/Dropbox"
 
-alias vps="cd $ROOT"
+alias cato="cd $ROOT"
 alias dc="docker-compose"
-alias be="cd $ROOT/adi-web-backend"
-alias fe="cd $ROOT/adi-web-frontend"
+alias be="cd $ROOT/adi-backend"
+alias fe="cd $ROOT/adi-frontend"
 
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
@@ -219,12 +236,14 @@ alias notes="cd $ROOT/notes"
 alias dial="mix compile && MIX_ENV=test mix dialyzer --ignore-exit-status --format short | tail -n 2"
 alias da="$ROOT/adi-stack/bin/da"
 alias tac="bat $ROOT/notes/tachyons.css"
+alias tac2="bat $ROOT/notes/v2/tachyons.css"
 
 alias elix="elixir --name adiweb-svc@127.0.0.1 --cookie nomnom -S mix phx.server"
 alias iexpry="iex --name adiweb-cli@127.0.0.1 --cookie nomnom --remsh adiweb-svc@127.0.0.1"
 
 alias ll='ls -lha'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias fryse="/Users/jakew/.mix/escripts/fryse"
 # pwgen -y -s 15 1
 # openssl rand -base64 15
 
@@ -252,3 +271,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export PATH=/Users/jakew/.local/bin:$PATH
 export ERL_AFLAGS="-kernel shell_history enabled"
 export CHUMAK_CURVE_LIB="enacl"
+
+[ -f "/Users/jakew/.ghcup/env" ] && source "/Users/jakew/.ghcup/env" # ghcup-envexport PATH="/usr/local/opt/ruby/bin:$PATH"
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby ruby-3.1.3

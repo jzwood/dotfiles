@@ -67,6 +67,8 @@
 		* brew install nvm
 - yarn
 		* brew install yarn
+- pretty-print
+		* yarn global add pretty-diff
 - trash
 		* yarn global add trash-cli
 - json formatter
