@@ -9,6 +9,10 @@
 [alias]
   sw = switch
 [alias]
+  dh = diff HEAD -w
+[alias]
+  dm = diff master -w
+[alias]
   co = checkout
 [alias]
   le = log --oneline
@@ -17,4 +21,4 @@
 [pull]
   ff = only
 [init]
-	defaultBranch = main
+  defaultBranch = main

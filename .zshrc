@@ -1,11 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export PATH="$(yarn global bin):$PATH"
+export PATH=$PATH:/Users/jakew/Library/Python/3.11/bin
+export PATH=$PATH:/Users/jakew/Documents/work/roc/roc_nightly-macos_x86_64-2025-02-04-59ff9bd
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # captricity / docker
 export ROOT=~/cato
+export CATO=~/cato
 
 # . ~/.gitrc # exports github token
 # . ~/.secrets
@@ -163,6 +166,10 @@ gbdo () {
   git branch | grep ^\ \ $2 | xargs git branch $1
 }
 
+gitclean () {
+  git branch --merged | grep -v "*" | grep -v master | xargs git branch -d
+}
+
 gn () {
   git branch | grep "^ " | head -n $1 | tail -n 1
 }
@@ -216,7 +223,8 @@ alias db="cd ~/Dropbox"
 alias cato="cd $ROOT"
 alias dc="docker-compose"
 alias be="cd $ROOT/adi-backend"
-alias fe="cd $ROOT/adi-frontend"
+alias fe="cd $ROOT/console-frontend"
+alias prec=".git/hooks/pre-commit"
 
 alias sp="svn diff --internal-diff >"
 alias ap="patch -p0 -i"
@@ -230,13 +238,14 @@ alias giri="cd $GIRI_HOME/giri; workon giri; source ~/.giri_profile"
 alias imsprod="giri; ./manage.py ssh -P imsprod celery-01"
 alias shreddrproduction="giri && ./manage.py ssh -P shreddrproduction celeryblank-02"
 alias cipherproduction="giri && ./manage.py ssh -P cipherproduction celeryblank-01"
-alias gbb="git branch | bat"
+alias gbb="git branch --sort=committerdate | bat"
+alias gbverb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 alias notes="cd $ROOT/notes"
 
-alias dial="mix compile && MIX_ENV=test mix dialyzer --ignore-exit-status --format short | tail -n 2"
+alias dial="mix compile && MIX_ENV=test mix dialyzer"
+#alias dial="mix compile && MIX_ENV=test mix dialyzer --ignore-exit-status --format short | tail -n 2"
 alias da="$ROOT/adi-stack/bin/da"
-alias tac="bat $ROOT/notes/tachyons.css"
-alias tac2="bat $ROOT/notes/v2/tachyons.css"
+alias tac="bat $ROOT/tachyons/css/tachyons-field.css"
 
 alias elix="elixir --name adiweb-svc@127.0.0.1 --cookie nomnom -S mix phx.server"
 alias iexpry="iex --name adiweb-cli@127.0.0.1 --cookie nomnom --remsh adiweb-svc@127.0.0.1"
@@ -275,4 +284,10 @@ export CHUMAK_CURVE_LIB="enacl"
 [ -f "/Users/jakew/.ghcup/env" ] && source "/Users/jakew/.ghcup/env" # ghcup-envexport PATH="/usr/local/opt/ruby/bin:$PATH"
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
+
 chruby ruby-3.1.3
+
+source "$HOME/.cargo/env"
+
+#source "/Users/jakew/Documents/work/emsdk/emsdk_env.sh"
+#. /usr/local/opt/asdf/libexec/asdf.sh

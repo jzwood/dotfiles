@@ -29,7 +29,7 @@ Plug 'sainnhe/vim-color-forest-night'
 "Plug 'devnul1/heman'
 
 Plug 'Raimondi/delimitMate' "provides automatic closing of quotes, parenthesis, brackets, etc
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
 Plug 'chaoren/vim-wordmotion'
 Plug 'chiel92/vim-autoformat'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -41,6 +41,7 @@ Plug 'joereynolds/sqhell.vim'
 Plug 'lilydjwg/colorizer' "colors hex values
 Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim' "emmet
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdcommenter'
@@ -53,8 +54,8 @@ Plug 'vim-test/vim-test'
 Plug 'w0rp/ale'
 Plug 'yggdroot/indentline'
 
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons' "must be last
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'ryanoasis/vim-devicons' "must be last
 
 call plug#end()
 
@@ -79,11 +80,12 @@ let g:livedown_browser = 'safari'
 let g:typescript_indent_disable = 1
 let g:NERDTreeLimitedSyntax = 1
 let g:SuperTabDefaultCompletionType = '<c-n>'
-let g:airline#extensions#ale#enabled = 1
-let g:airline_powerline_fonts = 1
+"let g:airline#extensions#ale#enabled = 1
+"let g:airline_powerline_fonts = 1
 
 let g:ale_python_flake8_options = '--config ~/.config/nvim/plugin/flake8.cfg'
-let g:ale_linters = {'javascript': ['eslint'], 'python': ['flake8'], 'typescript': ['eslint', 'tsserver', 'typecheck'], 'haskell': ['cabal_ghc', 'cspell', 'ghc', 'ghc_mod', 'hdevtools', 'hie', 'hlint', 'hls', 'stack_build', 'stack_ghc']}
+let g:ale_linters = { 'javascript': ['eslint'], 'python': ['flake8'], 'typescript': ['eslint', 'tsserver', 'typecheck'], 'haskell': ['cabal_ghc', 'cspell', 'ghc_mod', 'hdevtools', 'hie', 'hlint', 'hls', 'stack_build', 'stack_ghc'] }
+"'ghc', removed linter b/c it was freaking about about not finding imports
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
